@@ -1,7 +1,28 @@
+:root {
+    --color-bg-dark: #1c1c1e;
+    --color-bg-light: #FEFEFE;
+    --color-fg-dark: #ffffff;
+    --color-fg-light: #333333;
+    --link-color-dark: #8FBFFF;
+    --link-color-light: #1183FC;
+}
+
+[data-theme="dark"] {
+    --color-bg: var(--color-bg-dark);
+    --color-fg: var(--color-fg-dark);
+    --link-color: var(--link-color-dark);
+}
+
+[data-theme="light"] {
+    --color-bg: var(--color-bg-light);
+    --color-fg: var(--color-fg-light);
+    --link-color: var(--link-color-light);
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #1c1c1e;
-    color: #fff;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,66 +32,68 @@ body {
 }
 
 .container {
+    position: relative;
     display: flex;
     align-items: center;
-    width: 90%; /* Use a percentage for width */
-    max-width: 1050px; /* Maximum width to ensure it doesn't get too wide */
-    padding: 2rem; /* Use rem for padding */
+    width: 90%;
+    max-width: 1050px;
+    padding: 2rem;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    margin: 1rem; /* Add some margin for spacing */
+    margin: 1rem;
+    overflow: visible;
 }
+
+
+
 
 .content {
     flex: 3;
-    margin-right: 2rem; /* Use rem for margin */
+    margin-right: 2rem;
 }
 
 h1 {
-    font-size: 2.3rem; /* Use rem for font size */
+    font-size: 2.3rem;
     font-weight: 600;
     margin-bottom: 0.5em;
 }
 
 h2 {
     margin-top: 1.2em;
-    font-size: 1.5rem; /* Use rem for font size */
+    font-size: 1.5rem;
     font-weight: 500;
 }
 
-p {
-    font-size: 1.1rem; /* Use rem for font size */
+p, a, ul {
+    font-size: 1.1rem;
     line-height: 1.65;
-    margin: 1em 0;
 }
 
 ul {
     list-style-type: disc;
-    padding-left: 2.5rem; /* Use rem for padding */
-    font-size: 1.1rem; /* Use rem for font size */
+    padding-left: 2.5rem;
     margin-top: 0.001em;
     line-height: 1.7;
 }
 
 a {
     font-family: inherit;
-    color: #8FBFFF;
+    color: var(--link-color);
     text-decoration: none;
-    font-size: 1.1rem; /* Use rem for font size */
     transition: box-shadow 0.05s ease-in-out, text-decoration 0.2s ease;
 }
 
 a:hover {
     text-decoration: underline;
-    box-shadow: 0 0 8px 2px #8FBFFF;
+    box-shadow: 0 0 8px 2px var(--link-color);
 }
 
 .profile-pic {
     flex: 2;
-    margin-left: 1rem; /* Use rem for margin */
+    margin-left: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,7 +106,6 @@ a:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* Media queries for responsive design */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -115,46 +137,86 @@ a:hover {
     }
 }
 
-
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+.switch {
+    position: absolute;
+    display: inline-block;
+    top: -34px;
+    right: 10px;
+    width: 60px;
+    height: 34px;
+    z-index: 1000;
 }
 
-.project {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-.project:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
 }
 
-.project img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
 }
 
-.project h3 {
-    font-size: 1.5rem;
-    margin: 1rem 0 0.5rem;
-    color: #8FBFFF;
+input:checked + .slider {
+    background-color: #8FBFFF;
 }
 
-.project p {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin: 0.5rem 0;
-    color: #B0C4DE;
+input:focus + .slider {
+    box-shadow: 0 0 1px #8FBFFF;
 }
 
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.icon {
+    display: none;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 7px;
+}
+
+.day-icon {
+    left: 8px;
+}
+
+.night-icon {
+    right: 8px;
+}
+
+input:checked + .slider .day-icon {
+    display: none;
+}
+
+input:checked + .slider .night-icon {
+    display: block;
+}
+
+input:not(:checked) + .slider .day-icon {
+    display: block;
+}
+
+input:not(:checked) + .slider .night-icon {
+    display: none;
+}

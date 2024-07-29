@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const container = document.querySelector('.container');
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', storedTheme);
+    themeToggleButton.checked = storedTheme === 'dark';
 
-    container.addEventListener('mousemove', function(e) {
-        const rect = container.getBoundingClientRect();
-        const x = e.clientX - rect.left - 100; // 100 is half the width/height to center it
-        const y = e.clientY - rect.top - 100;
-        container.style.setProperty('--x', `${x}px`);
-        container.style.setProperty('--y', `${y}px`);
-    });
-
-    container.addEventListener('mouseleave', function() {
-        container.style.setProperty('--x', '-100px');
-        container.style.setProperty('--y', '-100px');
+    themeToggleButton.addEventListener('change', function () {
+        const newTheme = themeToggleButton.checked ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
     });
 });
