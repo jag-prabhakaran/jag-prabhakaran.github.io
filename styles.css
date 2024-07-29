@@ -36,8 +36,8 @@ h1 {
 }
 
 h2 {
-    margin-top: 1.3em;
-    font-size: 1.75rem; /* Use rem for font size */
+    margin-top: 1.2em;
+    font-size: 1.5rem; /* Use rem for font size */
     font-weight: 500;
 }
 
@@ -50,8 +50,9 @@ p {
 ul {
     list-style-type: disc;
     padding-left: 2.5rem; /* Use rem for padding */
-    font-size: 1.2rem; /* Use rem for font size */
-    margin-top: 0.25em;
+    font-size: 1.1rem; /* Use rem for font size */
+    margin-top: 0.001em;
+    line-height: 1.7;
 }
 
 a {
