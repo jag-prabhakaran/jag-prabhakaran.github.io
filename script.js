@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.documentElement.setAttribute("data-theme", storedTheme);
   themeToggleButton.checked = storedTheme === "dark";
 
+
   themeToggleButton.addEventListener("change", function () {
     const newTheme = themeToggleButton.checked ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", newTheme);
